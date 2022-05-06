@@ -1,0 +1,89 @@
+DECLARE @countingvariable INT
+SET @countingvariable = 1
+WHILE (@countingvariable <= 4968)
+BEGIN
+INSERT INTO dbo.Customer (CustomerID, CustomerFirstName, CustomerLastName, CustomerType, CustomerAddressLine1, CustomerAddressLine2, CustomerCity, CustomerState, CustomerZIP, CustomerRegion)
+VALUES (
+CAST(RAND()*9999 AS INT),
+CHAR(CAST(RAND()*(122-97)+97 AS INT)) + CHAR(CAST(RAND()*(122-97)+97 AS INT)) + CHAR(CAST(RAND()*(122-97)+97 AS INT)) + CHAR(CAST(RAND()*(122-97)+97 AS INT)) + CHAR(CAST(RAND()*(122-97)+97 AS INT)),
+CHAR(CAST(RAND()*(122-97)+97 AS INT)) + CHAR(CAST(RAND()*(122-97)+97 AS INT)) + CHAR(CAST(RAND()*(122-97)+97 AS INT)) + CHAR(CAST(RAND()*(122-97)+97 AS INT)) + CHAR(CAST(RAND()*(122-97)+97 AS INT)),
+CAST(RAND()*(3)+1 AS INT),
+CHAR(CAST(RAND()*(122-97)+97 AS INT)) + CHAR(CAST(RAND()*(122-97)+97 AS INT)) + CHAR(CAST(RAND()*(122-97)+97 AS INT)) + CHAR(CAST(RAND()*(122-97)+97 AS INT)) + CHAR(CAST(RAND()*(122-97)+97 AS INT)) + ' St.',
+'Apt. ' + CAST(CAST(RAND()*(20) AS INT) AS nvarchar),
+CHAR(CAST(RAND()*(122-97)+97 AS INT)) + CHAR(CAST(RAND()*(122-97)+97 AS INT)) + CHAR(CAST(RAND()*(122-97)+97 AS INT)) + CHAR(CAST(RAND()*(122-97)+97 AS INT)) + CHAR(CAST(RAND()*(122-97)+97 AS INT)),
+CHAR(CAST(RAND()*(122-97)+97 AS INT)) + CHAR(CAST(RAND()*(122-97)+97 AS INT)),
+CAST(RAND()*(99999) AS INT),
+CHAR(CAST(RAND()*(122-97)+97 AS INT)) + CHAR(CAST(RAND()*(122-97)+97 AS INT)) + CHAR(CAST(RAND()*(122-97)+97 AS INT)) + CHAR(CAST(RAND()*(122-97)+97 AS INT)) + CHAR(CAST(RAND()*(122-97)+97 AS INT))
+);
+SET @countingvariable = @countingvariable + 1
+END;
+
+DECLARE @everyvariable INT
+SET @everyvariable = 1
+WHILE (@everyvariable <= 4968)
+BEGIN
+INSERT INTO dbo.Fuel (FuelID, Fuelname, FuelPriceDollarstoGallons)
+VALUES (
+CAST(RAND()*9999 AS INT),
+CHAR(CAST(RAND()*(122-97)+97 AS INT)) + CHAR(CAST(RAND()*(122-97)+97 AS INT)) + CHAR(CAST(RAND()*(122-97)+97 AS INT)) + CHAR(CAST(RAND()*(122-97)+97 AS INT)) + CHAR(CAST(RAND()*(122-97)+97 AS INT)),
+CAST(RAND()*(10)+1 AS INT)
+);
+SET @everyvariable = @everyvariable + 1
+END;
+
+DECLARE @definevariable INT;
+SET @definevariable = 1;
+DECLARE @trucktype NVARCHAR(25);
+SET @trucktype = CASE WHEN FLOOR(RAND(CHECKSUM(NEWID()))*2)+1=1 THEN 'ram' WHEN FLOOR(RAND(CHECKSUM(NEWID()))*2)+1=2 THEN 'chevrolet' ELSE 'chevrolet' END;
+WHILE (@definevariable <= 4968)
+BEGIN
+INSERT INTO dbo.Truck (TruckID, TruckName, TruckType, TruckPriceDollars)
+VALUES (
+CAST(RAND()*9999 AS INT),
+CHAR(CAST(RAND()*(122-97)+97 AS INT)) + CHAR(CAST(RAND()*(122-97)+97 AS INT)) + CHAR(CAST(RAND()*(122-97)+97 AS INT)) + CHAR(CAST(RAND()*(122-97)+97 AS INT)) + CHAR(CAST(RAND()*(122-97)+97 AS INT)),
+@trucktype,
+CAST(RAND()*(10000)+1000 AS INT)
+);
+SET @definevariable = @definevariable + 1
+SET @trucktype = CASE WHEN FLOOR(RAND(CHECKSUM(NEWID()))*2)+1=1 THEN 'ram' WHEN FLOOR(RAND(CHECKSUM(NEWID()))*2)+1=2 THEN 'chevrolet' ELSE 'chevrolet' END;
+END;
+
+DECLARE @daysvariable INT
+SET @daysvariable = 1
+DECLARE @routetype NVARCHAR(25)
+SET @routetype = CASE WHEN FLOOR(RAND(CHECKSUM(NEWID()))*4)+1=2 THEN 'backroad' ELSE 'interstate' END;
+WHILE (@daysvariable <= 4968)
+BEGIN
+INSERT INTO dbo.TruckRoute(TruckRouteID, TruckRouteName, TruckRouteType, TruckRouteStartCity, TruckRouteEndCity, TruckRouteMileLength, TruckRouteFuelUsageGallons)
+VALUES (
+CAST(RAND()*9999 AS INT),
+CHAR(CAST(RAND()*(122-97)+97 AS INT)) + CHAR(CAST(RAND()*(122-97)+97 AS INT)) + CHAR(CAST(RAND()*(122-97)+97 AS INT)) + CHAR(CAST(RAND()*(122-97)+97 AS INT)) + CHAR(CAST(RAND()*(122-97)+97 AS INT)),
+@routetype,
+CHAR(CAST(RAND()*(122-97)+97 AS INT)) + CHAR(CAST(RAND()*(122-97)+97 AS INT)) + CHAR(CAST(RAND()*(122-97)+97 AS INT)) + CHAR(CAST(RAND()*(122-97)+97 AS INT)) + CHAR(CAST(RAND()*(122-97)+97 AS INT)),
+CHAR(CAST(RAND()*(122-97)+97 AS INT)) + CHAR(CAST(RAND()*(122-97)+97 AS INT)) + CHAR(CAST(RAND()*(122-97)+97 AS INT)) + CHAR(CAST(RAND()*(122-97)+97 AS INT)) + CHAR(CAST(RAND()*(122-97)+97 AS INT)),
+CAST(RAND()*9999 AS INT),
+CAST(RAND()*(10)+1 AS INT)
+);
+SET @daysvariable = @daysvariable + 1
+SET @routetype = CASE WHEN FLOOR(RAND(CHECKSUM(NEWID()))*4)+1=2 THEN 'backroad' ELSE 'interstate' END;
+END;
+
+DECLARE @kuskvariable INT
+SET @kuskvariable = 1
+DECLARE @deadvariable DATETIME
+SET @deadvariable = CONVERT(DATETIME, RAND()*9999);
+WHILE (@kuskvariable <= 4968)
+BEGIN
+INSERT INTO dbo.TrucktoCustomer(TrucktoCustomerID, TrucktoCustomerDate, TrucktoCustomerTruckRouteID, TrucktoCustomerTruckID, TrucktoCustomerCustomerID, TrucktoCustomerFuelID, TrucktoCustomerRevenue)
+VALUES (
+@kuskvariable,
+@deadvariable,
+CAST(RAND()*9999 AS INT),
+CAST(RAND()*9998 AS INT),
+CAST(RAND()*9997 AS INT),
+CAST(RAND()*9996 AS INT),
+CAST(RAND()*9995 AS INT)
+);
+SET @kuskvariable = @kuskvariable + 1
+SET @deadvariable = CONVERT(DATETIME, RAND()*9999)
+END;
